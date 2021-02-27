@@ -6,12 +6,11 @@ import numpy as np
 from sqlalchemy import create_engine
 import pymysql
 
-from bokeh.models import ColumnDataSource, Div, Select, Slider, TextInput
-from bokeh.io import curdoc
+from bokeh.models import ColumnDataSource
 from bokeh.resources import INLINE
 from bokeh.embed import components
 from bokeh.plotting import figure, output_file, show
-from bokeh.layouts import row, column
+from bokeh.layouts import column
 
 
 app = Flask(__name__)
@@ -49,7 +48,6 @@ df['switch'] = df.apply(lambda row : switchFunc(row['T1(Terminal 1)'], row['T2(T
 # insert switch (column) into terminals table
 try:
     df.to_sql('data_terminals', db_connection, index=False, if_exists='replace')
-    print("added switch")
 except Exception as e:
     print("inserting terminals failed")
     print(e)
